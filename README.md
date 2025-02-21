@@ -37,16 +37,29 @@ func main() {
 
 - Running the go application is very simple and only requires calling the command ``go run file_to_execute``. For our case it would be ``go run src/main.go``.
 
-### Variables & Constants
+## Variables & Constants
  - Constants are declared with the **const** keyword, for example, ``cont myConstant = value``.
  - Variables are declared with the **var** keyword, and follow the Camel case syntax. For example, ``var myVariable = value``. It can also be done by the following sentence ``myVariable := value``.
  *When we assign a value for the variable at the creation, it recognize automatically the type.
  - When we just instanciate the variable without initializing it, it required a type definition, that can be done with the type after the var name ``var myVar string``
  - It is possible to print the variable type by using **%T** placeholder in a Print statement.
  - Go also have pointers, and like in C, the variable memory position can be passed with the **&** key ``var pointer = &myVar``
+ 
+ ## Arrays
+Arrays in Go are like in C++ and have fixed sizes. To define a new array we use square brackets [ ] with the size of the Array inside of it, followed by the type, defining the amount of values that can be stored. E.g. ``var myArray [50]string{}`` declares an Array with 50 possible values. 
 
+It is possible to initialize the array with some values by adding such values inside the curly brackets -> ``var myArray = [50]string{"Maik", "Tom", "Bob"}``
 
-### Built-in fuctions
+*In Go, arrays accept only a single type. So it is not possible to use multiple types in the same array as in Python.
+
+- Array elements are assigned, changed or read by using square brackets, like in Python and C++ ``fmt.Print(myArray[10])``. The first element is represented by 0.
+
+## Slices
+Slices are an abstraction of arrays that allows creating a list without a predefined size. The creation of a Slice is similar to Arrays, but without defining the size ``var mySlice []string{}``. And to add elements to the Slice we can use the built-in function **append** ``mySlice = append(mySlice, newValue)``.
+
+## Built-in fuctions
 
 - **fmt.Print(string), fmt.Println(string), fmt.Printf(string, vars)** = print string on prompt.
 - **fmt.Scan(varPointer)** = Get input from user.
+- **len(variable)** = length of the variable
+- **append(slices, new_item)** = add new value to the slices variable
