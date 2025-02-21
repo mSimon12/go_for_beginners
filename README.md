@@ -17,7 +17,7 @@ If you are running it on **Linux**, proceed with the following steps:
 
 **Tipp:** Install Go extension (from go.dev) if you are using VS Code for development. 
 
-## Go Project
+## Creating a Go Project
 Go requires the initialization of a module to be able to compile the project, for this, use this command: ``go mod init go_app`` inside of your project folder. It will generate a go.mod file that contains information about your module.
 
 Go organizes the system into packages, so the files must be associated to packages and this is made by using the keyword ``package``. It is usual to use the package main for the main applicaion. It also requires an entry point for the application, which is recognized by delaring a **main** function. The basic file for a Hello World app would look likt below:
@@ -36,3 +36,17 @@ func main() {
 ** Differently from python, Go required the built-in packages to be excplicitly imported into the application. Therefore we need to import the **format** package to have Print funcionallity available, ``import "fmt"``.
 
 - Running the go application is very simple and only requires calling the command ``go run file_to_execute``. For our case it would be ``go run src/main.go``.
+
+### Variables & Constants
+ - Constants are declared with the **const** keyword, for example, ``cont myConstant = value``.
+ - Variables are declared with the **var** keyword, and follow the Camel case syntax. For example, ``var myVariable = value``. It can also be done by the following sentence ``myVariable := value``.
+ *When we assign a value for the variable at the creation, it recognize automatically the type.
+ - When we just instanciate the variable without initializing it, it required a type definition, that can be done with the type after the var name ``var myVar string``
+ - It is possible to print the variable type by using **%T** placeholder in a Print statement.
+ - Go also have pointers, and like in C, the variable memory position can be passed with the **&** key ``var pointer = &myVar``
+
+
+### Built-in fuctions
+
+- **fmt.Print(string), fmt.Println(string), fmt.Printf(string, vars)** = print string on prompt.
+- **fmt.Scan(varPointer)** = Get input from user.
