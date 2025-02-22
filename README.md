@@ -57,9 +57,27 @@ It is possible to initialize the array with some values by adding such values in
 ## Slices
 Slices are an abstraction of arrays that allows creating a list without a predefined size. The creation of a Slice is similar to Arrays, but without defining the size ``var mySlice []string{}``. And to add elements to the Slice we can use the built-in function **append** ``mySlice = append(mySlice, newValue)``.
 
+## Loops
+As well as in any language, Go provides a loops for executing code multiple times. Although, instead of providing multiple options like **while**, **do-while** and **for-each**, Go have only the **for** loop, which is made in a way that it can be implemented for all representing all the loop types.
+- **Infinite loop:** can be accomplished by declaring the **for** loop without any parameter.
+```go
+for {
+    fmt.Print("This will run forever")
+}
+```
+- **Iterable loop**: use the **for** loop followed by variables that will receive the elements at each loop, keyword **range** and the iterable from where the items will be extracted, with a **:=** between them names for without any parameter.
+***range** iterates over elements, and provides index and value for arrays and slices.
+```go
+for index, item := range itesList {
+    fmt.Printf("Item %v is: %v\n", index, item)
+}
+```
+*Tipp: an underscore can be used for not needed variables ``for _, item := range itesList``
+
 ## Built-in fuctions
 
 - **fmt.Print(string), fmt.Println(string), fmt.Printf(string, vars)** = print string on prompt.
 - **fmt.Scan(varPointer)** = Get input from user.
 - **len(variable)** = length of the variable
 - **append(slices, new_item)** = add new value to the slices variable
+- **strings.Field(stringVar)** = split the string with white space separator.
