@@ -17,10 +17,10 @@ func main() {
 
 	var userFistName string
 	var userLastName string
-	var email string
-	var bookedTickets uint
+	var userEmail string
+	var desiredTickets uint
 
-	for {
+	for remainingTickets > 0 {
 		// Ask User info
 		fmt.Println("\nUser form:")
 		fmt.Print("Enter first name: ")
@@ -29,27 +29,52 @@ func main() {
 		fmt.Scan(&userLastName)
 
 		fmt.Print("Enter user email: ")
-		fmt.Scan(&email)
+		fmt.Scan(&userEmail)
 
 		fmt.Print("Enter number of desired tickets: ")
-		fmt.Scan(&bookedTickets)
+		fmt.Scan(&desiredTickets)
 
-		remainingTickets -= bookedTickets
-		bookings = append(bookings, userFistName+" "+userLastName)
+		// Check inputted names
+		isNameValid := len(userFistName) >= 2 && len(userLastName) >= 2
 
-		fmt.Printf("Thank you %v for buying %v tickets. You will receive your tickets at email %v\n",
-			userFistName, email, bookedTickets)
+		// Check email
+		isEmailValid := strings.Contains(userEmail, "@")
 
-		fmt.Printf("Remaining Tickets: %v\n", remainingTickets)
-		fmt.Printf("The whole bookings array: %v\n", bookings)
+		// Check desired tickets
+		isAmountValid := desiredTickets > 0 && desiredTickets <= remainingTickets
 
-		firstNames := []string{}
-		for _, booking := range bookings {
-			var names = strings.Fields(booking)
-			firstNames = append(firstNames, names[0])
+		if isNameValid && isEmailValid && isAmountValid {
+			remainingTickets -= desiredTickets
+			bookings = append(bookings, userFistName+" "+userLastName)
+
+			fmt.Printf("Thank you %v for buying %v tickets. You will receive your tickets at email %v\n",
+				userFistName, userEmail, desiredTickets)
+
+			fmt.Printf("Remaining Tickets: %v\n", remainingTickets)
+			fmt.Printf("The whole bookings array: %v\n", bookings)
+
+			firstNames := []string{}
+			for _, booking := range bookings {
+				var names = strings.Fields(booking)
+				firstNames = append(firstNames, names[0])
+			}
+			fmt.Printf("People that already booked tickets: %v\n", firstNames)
+
+		} else {
+			fmt.Println()
+			if !isNameValid {
+				fmt.Println("Invalid name!")
+			}
+			if !isEmailValid {
+				fmt.Println("Invalid email!")
+			}
+			if !isAmountValid {
+				fmt.Println("Invalid amount!")
+			}
+			fmt.Println("Invalid input data! Try again.")
 		}
-		fmt.Printf("People that already booked tickets: %v\n", firstNames)
 
 	}
 
+	fmt.Println("\nThe desired movie session is sold out!")
 }
