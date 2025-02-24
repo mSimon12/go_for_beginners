@@ -1,4 +1,4 @@
-# Go application
+# Go for beginners
 In this repository I present my own steps learning Go, while developing a first application.
 
 ## Installing Go Compiler
