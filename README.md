@@ -61,6 +61,18 @@ Slices are an abstraction of arrays that allows creating a list without a predef
 ### Maps
 Go provide a data structure similar to a Dictionary, where we can save elements as a key, value pair. It is provided by the **map** type and a new variable of this type can be declared by using the key map, and specifying the key and value types. E. g. ``var myVar = map[string]int`` means the keys must be strings and the values integers.
 
+### Structs
+Structures allow defining key-value pairs composed by different data types. This is inherited from C++ and is kind of an object with its defined attributes types. It is declared following the example below:
+```go
+type UserData struct {
+	firstName string
+	lastName string
+	email string
+	numberOfTickets uint
+}
+```
+Here the keyword **type** defines the creation of a new variable type, and **struct** is responsible for structuring multiple variables in only one object.
+
 ## Loops
 As well as in any language, Go provides a loops for executing code multiple times. Although, instead of providing multiple options like **while**, **do-while** and **for-each**, Go have only the **for** loop, which is made in a way that it can be implemented for all representing all the loop types.
 - **Infinite loop:** can be accomplished by declaring the **for** loop without any parameter.

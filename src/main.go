@@ -3,14 +3,20 @@ package main
 import (
 	"fmt"
 	"go_app/src/helper"
-	"strconv"
 )
 
 const theaterTotalTickets uint = 100
 
 var movieTheaterName string = "SuperCine"
 var remainingTickets uint = theaterTotalTickets
-var bookings = make([]map[string]string, 0)
+var bookings = make([]UserData, 0)
+
+type UserData struct {
+	firstName       string
+	lastName        string
+	email           string
+	numberOfTickets uint
+}
 
 func main() {
 
@@ -52,7 +58,7 @@ func main() {
 func extractBookingsFirstName() []string {
 	firstNames := []string{}
 	for _, booking := range bookings {
-		var names = booking["firstName"]
+		var names = booking.firstName
 		firstNames = append(firstNames, names)
 	}
 	return firstNames
@@ -62,11 +68,11 @@ func bookTicket(firstName string, lastName string, email string, desiredTickets 
 	remainingTickets -= desiredTickets
 
 	// create a map for a user
-	var userData = make(map[string]string)
-	userData["firstName"] = firstName
-	userData["lastName"] = lastName
-	userData["email"] = email
-	userData["numberOfTickets"] = strconv.FormatUint(uint64(desiredTickets), 10)
+	var userData = UserData{}
+	userData.firstName = firstName
+	userData.lastName = lastName
+	userData.email = email
+	userData.numberOfTickets = desiredTickets
 
 	bookings = append(bookings, userData)
 
