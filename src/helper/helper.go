@@ -3,6 +3,7 @@ package helper
 import (
 	"fmt"
 	"strings"
+	"time"
 )
 
 func ValidateUserInput(firstName string, lastName string, email string, userTickets uint, remainingTickets uint) (bool, bool, bool) {
@@ -38,4 +39,14 @@ func GetUserInput() (string, string, string, uint) {
 	fmt.Scan(&tickets)
 
 	return firstName, lastName, email, tickets
+}
+
+func SendTicket(userTickets uint, firstName string, LastName string, email string) {
+	var ticket = fmt.Sprintf("%v tickets booked for %v %v", userTickets, firstName, LastName)
+	time.Sleep(5 * time.Second)
+	fmt.Println()
+	fmt.Println("####################")
+	fmt.Printf("Sending ticket to email address: %v\n", email)
+	fmt.Println(ticket)
+	fmt.Println("####################")
 }

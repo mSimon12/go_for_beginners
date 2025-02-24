@@ -29,6 +29,7 @@ func main() {
 		if isNameValid && isEmailValid && isAmountValid {
 
 			bookTicket(userFistName, userLastName, userEmail, desiredTickets)
+			go helper.SendTicket(desiredTickets, userFistName, userLastName, userEmail)
 
 			fmt.Printf("Remaining Tickets: %v\n", remainingTickets)
 			fmt.Printf("The whole bookings array: %v\n", bookings)

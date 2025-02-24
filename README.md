@@ -190,3 +190,37 @@ Then we need to update the go command to make sure that the compiler includes al
 Of course we are not going to have only one package in our whole project. When the project gets big we will have multiple packages, and for that we define different packages names to be added with the **package** keyword, and we aggregate all the files from the same package in a subdirectory. To include this a package in a file from our project we need to use the complete path to from the project source to make it valid. The project source is defined by the name declared as **module** in the **go.mod** file.
 
 In go we also need to define if a function is visible outside the package, and for this we need to capitalize the first letter from the function name. For example, **getUserName() would be an private** function while **GetUserName() is public**.
+
+## Concurrency
+Go is known for its efficiency running multithread applications in an easy and efficient way. Making a function run as a separate Thread in Go is very simple and can be accomplished by simply adding the **go** keyword before calling the threaded function (**Goroutine**), e.g. ``go myFunc()`` 
+
+Although, at some applications we might need to join a running thread and wait for it to finish, or we might need to provide mutual exclusion. The tools for this are available in the **sync** package. Below is an example about how to wait the thread termination before ending the application by using the **WaitGroup** object, which provides 3 main functions, Add, Wait and Done.
+
+```go
+package main
+
+import (
+    "fmt"
+    "time"
+    "sync"
+)
+
+var wg = sync.WaitGroup{}
+
+func main() {
+    fmt.Println("Main routine")
+    wg.Add(1)
+    go threadRoutine()
+    wg.Wait()
+}
+
+func threadRoutine() {
+    time.Sleep(5 * time.Second)
+    fmt.Println("Running subroutine")
+    wg.Done()
+}
+```
+
+*A **Goroutine** is actually an abstraction of a real thread that makes our code iterate with a high level logic instead of dealing directly with the execution of threads in the Kernel. Creating Goroutines is cheaper, faster and lightweight, making possible to create thousands of Goroutines.
+
+OS threads have no easy communication between themselves, while Goroutines make use of channels to easily coordinate between each other. 
