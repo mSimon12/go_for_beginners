@@ -3,14 +3,14 @@ package main
 import (
 	"fmt"
 	"go_app/src/helper"
-	"strings"
+	"strconv"
 )
 
 const theaterTotalTickets uint = 100
 
 var movieTheaterName string = "SuperCine"
 var remainingTickets uint = theaterTotalTickets
-var bookings = []string{}
+var bookings = make([]map[string]string, 0)
 
 func main() {
 
@@ -52,15 +52,23 @@ func main() {
 func extractBookingsFirstName() []string {
 	firstNames := []string{}
 	for _, booking := range bookings {
-		var names = strings.Fields(booking)
-		firstNames = append(firstNames, names[0])
+		var names = booking["firstName"]
+		firstNames = append(firstNames, names)
 	}
 	return firstNames
 }
 
 func bookTicket(firstName string, lastName string, email string, desiredTickets uint) {
 	remainingTickets -= desiredTickets
-	bookings = append(bookings, firstName+" "+lastName)
+
+	// create a map for a user
+	var userData = make(map[string]string)
+	userData["firstName"] = firstName
+	userData["lastName"] = lastName
+	userData["email"] = email
+	userData["numberOfTickets"] = strconv.FormatUint(uint64(desiredTickets), 10)
+
+	bookings = append(bookings, userData)
 
 	fmt.Printf("Thank you %v for buying %v tickets. You will receive your tickets at email %v\n",
 		firstName, email, desiredTickets)

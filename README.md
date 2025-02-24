@@ -58,6 +58,9 @@ It is possible to initialize the array with some values by adding such values in
 ### Slices
 Slices are an abstraction of arrays that allows creating a list without a predefined size. The creation of a Slice is similar to Arrays, but without defining the size ``var mySlice []string{}``. And to add elements to the Slice we can use the built-in function **append** ``mySlice = append(mySlice, newValue)``.
 
+### Maps
+Go provide a data structure similar to a Dictionary, where we can save elements as a key, value pair. It is provided by the **map** type and a new variable of this type can be declared by using the key map, and specifying the key and value types. E. g. ``var myVar = map[string]int`` means the keys must be strings and the values integers.
+
 ## Loops
 As well as in any language, Go provides a loops for executing code multiple times. Although, instead of providing multiple options like **while**, **do-while** and **for-each**, Go have only the **for** loop, which is made in a way that it can be implemented for all representing all the loop types.
 - **Infinite loop:** can be accomplished by declaring the **for** loop without any parameter.
@@ -163,6 +166,8 @@ func mathSubSum (val1 int, val2 int) (int,int) {
 - **append(slices, new_item)** = add new value to the slices variable
 - **strings.Field(stringVar)** = split the string with white space separator.
 - **strings.Contains(stringVar, checkedOccurrence)** = check presence of substring in a string.
+- **make(t Type)** = allocates and initialize an object of type slice, map or chan.
+- **strconv.FormatUint(uint64(uint_value), base)** = format uint into a string according to desired base.
 
 
 ## Go Packages
