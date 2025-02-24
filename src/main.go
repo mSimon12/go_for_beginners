@@ -2,62 +2,32 @@ package main
 
 import (
 	"fmt"
+	"go_app/src/helper"
 	"strings"
 )
 
+const theaterTotalTickets uint = 100
+
+var movieTheaterName string = "SuperCine"
+var remainingTickets uint = theaterTotalTickets
+var bookings = []string{}
+
 func main() {
-	movieTheaterName := "SuperCine"
-	const theaterTotalTickets uint = 100
-	var remainingTickets uint = theaterTotalTickets
-	bookings := []string{}
 
-	fmt.Println("Welcome to", movieTheaterName, "tickets Store!")
-	fmt.Print("Book here your ticket to the most amazing movie experience.\n")
-	fmt.Printf("Available tickets: %v\n", remainingTickets)
-
-	var userFistName string
-	var userLastName string
-	var userEmail string
-	var desiredTickets uint
+	greetUsers()
 
 	for remainingTickets > 0 {
 		// Ask User info
-		fmt.Println("\nUser form:")
-		fmt.Print("Enter first name: ")
-		fmt.Scan(&userFistName)
-		fmt.Print("Enter last name: ")
-		fmt.Scan(&userLastName)
-
-		fmt.Print("Enter user email: ")
-		fmt.Scan(&userEmail)
-
-		fmt.Print("Enter number of desired tickets: ")
-		fmt.Scan(&desiredTickets)
-
-		// Check inputted names
-		isNameValid := len(userFistName) >= 2 && len(userLastName) >= 2
-
-		// Check email
-		isEmailValid := strings.Contains(userEmail, "@")
-
-		// Check desired tickets
-		isAmountValid := desiredTickets > 0 && desiredTickets <= remainingTickets
-
+		userFistName, userLastName, userEmail, desiredTickets := helper.GetUserInput()
+		isNameValid, isEmailValid, isAmountValid := helper.ValidateUserInput(userFistName, userLastName, userEmail, desiredTickets, remainingTickets)
 		if isNameValid && isEmailValid && isAmountValid {
-			remainingTickets -= desiredTickets
-			bookings = append(bookings, userFistName+" "+userLastName)
 
-			fmt.Printf("Thank you %v for buying %v tickets. You will receive your tickets at email %v\n",
-				userFistName, userEmail, desiredTickets)
+			bookTicket(userFistName, userLastName, userEmail, desiredTickets)
 
 			fmt.Printf("Remaining Tickets: %v\n", remainingTickets)
 			fmt.Printf("The whole bookings array: %v\n", bookings)
 
-			firstNames := []string{}
-			for _, booking := range bookings {
-				var names = strings.Fields(booking)
-				firstNames = append(firstNames, names[0])
-			}
+			firstNames := extractBookingsFirstName()
 			fmt.Printf("People that already booked tickets: %v\n", firstNames)
 
 		} else {
@@ -77,4 +47,21 @@ func main() {
 	}
 
 	fmt.Println("\nThe desired movie session is sold out!")
+}
+
+func extractBookingsFirstName() []string {
+	firstNames := []string{}
+	for _, booking := range bookings {
+		var names = strings.Fields(booking)
+		firstNames = append(firstNames, names[0])
+	}
+	return firstNames
+}
+
+func bookTicket(firstName string, lastName string, email string, desiredTickets uint) {
+	remainingTickets -= desiredTickets
+	bookings = append(bookings, firstName+" "+lastName)
+
+	fmt.Printf("Thank you %v for buying %v tickets. You will receive your tickets at email %v\n",
+		firstName, email, desiredTickets)
 }

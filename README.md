@@ -44,6 +44,7 @@ func main() {
  - When we just instantiate the variable without initializing it, it required a type definition, that can be done with the type after the var name ``var myVar string``
  - It is possible to print the variable type by using **%T** placeholder in a Print statement.
  - Go also have pointers, and like in C, the variable memory position can be passed with the **&** key ``var pointer = &myVar``
+ - Variables can be made global (**package variables)** by creating them outside a function context. These can only be declared using the **var** keyword and not the **:=** fast assignment.
  
  ### Arrays
 Arrays in Go are like in C++ and have fixed sizes. To define a new array we use square brackets [ ] with the size of the Array inside of it, followed by the type, defining the amount of values that can be stored. E.g. ``var myArray [50]string{}`` declares an Array with 50 possible values. 
@@ -134,7 +135,25 @@ The operators in Go follow the same syntax from C++. So keywords like **or**, **
 - left shift - <<
 - right shift - >>
 
+## Functions
+Functions are very important elements which provide a better encapsulation of code, making possible the separation of the app in domains where each function process only one thing. This are fundamental for a organized and clean code structure. In Go a function is declared by using the **func** keyword followed by the function name and the code is delimited by curly brackets.
 
+Arguments for the function need to be defined inside the parenthesis and have their types specified. Also for making possible returning something with the function, the return type must be defined outside the parenthesis and right before the opening of the brackets.
+```go
+func sumFunction(val1 int, val2 int) int {
+    sum := val1 + val2
+    return sum
+}
+```
+
+In Go it is also possible to return more than one value. To specify the types of each return we need to use a second parenthesis declaring the types. Then in the **return** statement we separate values with a comma.
+```go
+func mathSubSum (val1 int, val2 int) (int,int) {
+    sub := val1 - val2
+    sum := val1 + val2
+    return sub, sum
+}
+```
 
 ## Built-in functions
 
@@ -144,3 +163,13 @@ The operators in Go follow the same syntax from C++. So keywords like **or**, **
 - **append(slices, new_item)** = add new value to the slices variable
 - **strings.Field(stringVar)** = split the string with white space separator.
 - **strings.Contains(stringVar, checkedOccurrence)** = check presence of substring in a string.
+
+
+## Go Packages
+In go we can also use multiple files to develop our application in a more organized way and better structured. To make one file recognize the declaration from another file we need to set the same **package** for both. For example, in the **main.go** file we have set `package main``, so we do teh same in another file that is shared with it.
+
+Then we need to update the go command to make sure that the compiler includes all required files. This is accomplished by adding the extra files as following arguments in the run call. E.g ``go run src/main.go src/greetings.go`` If all the files are in the same folder it is possible to call ``go run .`` to run the complete folder.
+
+Of course we are not going to have only one package in our whole project. When the project gets big we will have multiple packages, and for that we define different packages names to be added with the **package** keyword, and we aggregate all the files from the same package in a subdirectory. To include this a package in a file from our project we need to use the complete path to from the project source to make it valid. The project source is defined by the name declared as **module** in the **go.mod** file.
+
+In go we also need to define if a function is visible outside the package, and for this we need to capitalize the first letter from the function name. For example, **getUserName() would be an private** function while **GetUserName() is public**.
